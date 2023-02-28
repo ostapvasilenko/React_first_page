@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
-import PostCard from '../components/UI/PostCards'
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+import PostCard from '../components/UI/PostCards';
 // eslint-disable-next-line 
-import styles from '../styles/My_first_page.module.css'
+import styles from '../styles/My_first_page.module.css';
 
 const My_first_page = () => {
-  let [counter, setCounter] = React.useState(0)
+  let [counter, setCounter] = React.useState(0);
   let [surname, setSurname] = React.useState('');
   let [name, setName] = React.useState('');
   let [fatherName, setFatherName] = React.useState('');
@@ -13,22 +13,24 @@ const My_first_page = () => {
   let [title, setTitle] = React.useState('');
   let [text, setText] = React.useState('');
   let [formErrors, setFormErrors] = React.useState({});
-  //1. Create a state variable to store the posts
+  //  Create a state variable to store the posts
   let [posts, setPosts] = useState([]);
   let [loading, setLoading] = useState(false);
   useEffect(() => {
     getPosts();
   }, []);
-  //2. Create a function to fetch the posts from the API
+  //  Create a function to fetch the posts from the API
   async function getPosts() {
     const DATA = await fetch("https://jsonplaceholder.typicode.com/posts")
       .then((res) => res.json())
       .then((data) => {
         return data;
       });
-    //3. Set the posts state variable to the data
+    // Set the posts state variable to the data
     setPosts(DATA);
   }
+
+  // Form validation
   const validateForm = () => {
     const errors = {};
     if (!surname.trim()) {
@@ -48,6 +50,8 @@ const My_first_page = () => {
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
+
+  // Add post
   function addPost(e) {
     e.preventDefault();
     const newPost = {
@@ -59,6 +63,13 @@ const My_first_page = () => {
     setPosts([newPost, ...posts]);
   }
 
+  // Clear form
+  function clearForm() {
+    setTitle('');
+    setText('');
+  }
+
+  
   return (
     <div className={styles.body}>
       <h1 className={styles.title}>My first React page</h1>
@@ -68,11 +79,9 @@ const My_first_page = () => {
       <button className={styles.button} onClick={() => {
         setCounter(counter + 1)
       }}>Increment (+1)</button>
-
       <button className={styles.button} onClick={() => {
         setCounter(counter - 1)
       }}>Decrement (-1)</button>
-
       <h2 className={styles.result}  >
         Result: {counter}
       </h2>
@@ -89,7 +98,6 @@ const My_first_page = () => {
       </form>
 
 
-
       <form onSubmit={(e) => {
         e.preventDefault();
         if (validateForm()) {
@@ -97,10 +105,10 @@ const My_first_page = () => {
 
         }
       }}>
-        <div className=''><input onChange={(e) => { setSurname(e.target.value) }} type="text" placeholder='Surname' />
-          <input onChange={(e) => { setName(e.target.value) }} type="text" placeholder='Name' />
-          <input onChange={(e) => { setFatherName(e.target.value) }} type="text" placeholder='Father`s name' /></div>
-        <input onChange={(e) => { setEmail(e.target.value) }} type="mail" placeholder='Email' />
+        <div ><input onChange={(e) => { setSurname(e.target.value.toUpperCase()) }} type="text" placeholder='Surname' />
+          <input onChange={(e) => { setName(e.target.value.toUpperCase()) }} type="text" placeholder='Name' />
+          <input onChange={(e) => { setFatherName(e.target.value.toUpperCase()) }} type="text" placeholder='Father`s name' />
+        <input onChange={(e) => { setEmail(e.target.value.toLowerCase()) }} type="mail" placeholder='Email' /></div>
       </form>
       <h2>
 
@@ -113,7 +121,7 @@ const My_first_page = () => {
         <div className="container">
           <div className="row">
             <div className="col-12">
-              <div onClick={getPosts} className={styles.button}>
+              <div onClick={getPosts}  className={styles.button}>
                 Show Posts
               </div>
             </div>

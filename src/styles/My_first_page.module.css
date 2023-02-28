@@ -56,7 +56,8 @@
 
 }
 
-input, textarea {
+input,
+textarea {
     text-align: center;
     padding: 10px;
     border: 2px solid #af4c7a;
@@ -64,18 +65,20 @@ input, textarea {
     margin: 24px !important;
     color: rgb(255, 227, 151);
     font-weight: 500;
-    font-size: 18px!important;
+    font-size: 18px !important;
     background: transparent;
     backdrop-filter: blur(5px);
     box-shadow: 0 0 8px #af4c7a;
     text-shadow: 0 0 2px #ff00bf;
+}
 
+input {
+    text-transform: capitalize;
 }
 
 input:focus {
     outline-color: rgb(255, 227, 151);
     box-shadow: 0 0 8px rgb(255, 227, 151);
-
 }
 
 ::placeholder {
@@ -90,9 +93,9 @@ h2 {
     text-align: center;
     text-shadow: 0 0 8px #ff00bf;
     padding: 40px;
-
 }
-.posts_form{
+
+.posts_form {
     display: flex;
     flex-direction: column;
     align-items: center;
