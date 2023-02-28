@@ -32,6 +32,8 @@ const My_first_page = () => {
     getPosts();
   }, []);
 
+
+
   // Form validation
   const validateForm = () => {
     const errors = {};
@@ -71,6 +73,12 @@ const My_first_page = () => {
     setText('');
   }
 
+      // Delete post
+ function deletePost(post) {
+  const newPosts = posts.filter((p) => p.id !== post.id);
+  setPosts(newPosts);
+}
+  
   
   return (
     <div className={styles.body}>
@@ -133,7 +141,7 @@ const My_first_page = () => {
 
                 {posts.map((post) => {
                   return (
-                    <PostCard post={post} key={post.id} />
+                    <PostCard deletePost={deletePost} post={post} key={post.id} />
                   );
                 })}
               </div>

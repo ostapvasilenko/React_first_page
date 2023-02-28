@@ -1,6 +1,10 @@
 import React from "react";
 
+
+
 const PostCards = ({ post, deletePost }) => {
+
+
   
   const { title, body } = post;
   return (
