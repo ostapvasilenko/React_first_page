@@ -16,9 +16,7 @@ const My_first_page = () => {
   //  Create a state variable to store the posts
   let [posts, setPosts] = useState([]);
   let [loading, setLoading] = useState(false);
-  useEffect(() => {
-    getPosts();
-  }, []);
+
   //  Create a function to fetch the posts from the API
   async function getPosts() {
     const DATA = await fetch("https://jsonplaceholder.typicode.com/posts")
@@ -29,6 +27,10 @@ const My_first_page = () => {
     // Set the posts state variable to the data
     setPosts(DATA);
   }
+
+  useEffect(() => {
+    getPosts();
+  }, []);
 
   // Form validation
   const validateForm = () => {
@@ -105,7 +107,7 @@ const My_first_page = () => {
 
         }
       }}>
-        <div ><input onChange={(e) => { setSurname(e.target.value.toUpperCase()) }} type="text" placeholder='Surname' />
+        <div><input onChange={(e) => { setSurname(e.target.value.toUpperCase()) }} type="text" placeholder='Surname' />
           <input onChange={(e) => { setName(e.target.value.toUpperCase()) }} type="text" placeholder='Name' />
           <input onChange={(e) => { setFatherName(e.target.value.toUpperCase()) }} type="text" placeholder='Father`s name' />
         <input onChange={(e) => { setEmail(e.target.value.toLowerCase()) }} type="mail" placeholder='Email' /></div>
