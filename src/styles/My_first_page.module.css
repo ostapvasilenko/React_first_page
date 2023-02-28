@@ -104,3 +104,8 @@ h2 {
     width: 100%;
     overflow: hidden;
 }
+.posts_form_data{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}

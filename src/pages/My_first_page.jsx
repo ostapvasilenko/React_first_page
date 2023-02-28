@@ -107,7 +107,7 @@ const My_first_page = () => {
 
         }
       }}>
-        <div><input onChange={(e) => { setSurname(e.target.value.toUpperCase()) }} type="text" placeholder='Surname' />
+        <div className={styles.posts_form_data}><input onChange={(e) => { setSurname(e.target.value.toUpperCase()) }} type="text" placeholder='Surname' />
           <input onChange={(e) => { setName(e.target.value.toUpperCase()) }} type="text" placeholder='Name' />
           <input onChange={(e) => { setFatherName(e.target.value.toUpperCase()) }} type="text" placeholder='Father`s name' />
         <input onChange={(e) => { setEmail(e.target.value.toLowerCase()) }} type="mail" placeholder='Email' /></div>
