@@ -30,6 +30,7 @@ const My_first_page = () => {
 
   useEffect(() => {
     getPosts();
+    clearForm();
   }, []);
 
 
@@ -97,6 +98,8 @@ const My_first_page = () => {
       </h2>
       <form onSubmit={(e) => {
         e.preventDefault();
+        e.clearForm();
+       
         if (validateForm()) {
           console.log('Form is valid');
         }
@@ -104,12 +107,13 @@ const My_first_page = () => {
         <div className={styles.posts_form}>
           <input onChange={(e) => { setTitle(e.target.value) }} type="text" placeholder='Title' />
           <textarea onChange={(e) => { setText(e.target.value) }} type="text" placeholder='Text' />
-          <button onClick={addPost} className={styles.button}>Add Post</button></div>
+          <button  onClick={addPost} className={styles.button}>Add Post</button></div>
       </form>
 
 
       <form onSubmit={(e) => {
         e.preventDefault();
+        e.clearForm();
         if (validateForm()) {
           console.log('Form is valid');
 
