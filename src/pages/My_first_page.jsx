@@ -89,7 +89,7 @@ const My_first_page = () => {
   }
 
   function addUserData(singleUser, nameReacVariable, methodReactVariable) {
-    methodReactVariable([...nameReacVariable, singleUser]);
+    methodReactVariable([singleUser, ...nameReacVariable]);
   }
 
   return (
