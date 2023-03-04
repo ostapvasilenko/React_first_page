@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import UserCard from '../components/user/card/Card'
 import PostCard from "../components/UI/PostCards";
 // eslint-disable-next-line
 import styles from "../styles/My_first_page.module.css";
@@ -7,6 +8,7 @@ import styles from "../styles/My_first_page.module.css";
 const My_first_page = () => {
   const [counter, setCounter] = useState(0);
 
+  const [userData, setUserData] = useState([]);
   const [data, setData] = useState({
     surname: "",
     name: "",
@@ -86,6 +88,10 @@ const My_first_page = () => {
     setPosts(newPosts);
   }
 
+  function addUserData(singleUser, nameReacVariable, methodReactVariable) {
+    methodReactVariable([...nameReacVariable, singleUser]);
+  }
+
   return (
     <div className={styles.body}>
       <h1 className={styles.title}>My first React page</h1>
@@ -140,14 +146,11 @@ const My_first_page = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          e.clearForm();
-          if (validateForm()) {
-            console.log("Form is valid");
-          }
+          addUserData(data, userData, setUserData);
+          // e.clearForm();
         }}
       >
         <div className={styles.posts_form_data}>
-          <div>{data.surname}</div>
           <input
             onChange={(e) => {
               const tepmlatePosts = { ...data };
@@ -160,7 +163,7 @@ const My_first_page = () => {
           <input
             onChange={(e) => {
               const tepmlatePosts = { ...data };
-              tepmlatePosts.name = e.target.value.toUpperCase();
+              tepmlatePosts.name = e.target.value;
               setData(tepmlatePosts);
             }}
             type="text"
@@ -169,7 +172,7 @@ const My_first_page = () => {
           <input
             onChange={(e) => {
               const tepmlatePosts = { ...data };
-              tepmlatePosts.fatherName = e.target.value.toUpperCase();
+              tepmlatePosts.fatherName = e.target.value;
               setData(tepmlatePosts);
             }}
             type="text"
@@ -178,19 +181,33 @@ const My_first_page = () => {
           <input
             onChange={(e) => {
               const tepmlatePosts = { ...data };
-              tepmlatePosts.email = e.target.value.toUpperCase();
+              tepmlatePosts.email = e.target.value;
               setData(tepmlatePosts);
             }}
             type="mail"
             placeholder="Email"
           />
         </div>
+        <button type="submit" className={styles.button}>
+          Add User
+        </button>
       </form>
       <h2>
         {surname} {name.length ? name[0] + "." : ""}{" "}
         {fatherName.length ? fatherName[0] + "." : ""}
       </h2>
       <h2>{email}</h2>
+
+
+
+      {userData.map((user) => {
+        return <UserCard key={user} data ={user}/>
+      })}
+
+
+
+
+
       <section>
         <div className="container">
           <div className="row">
