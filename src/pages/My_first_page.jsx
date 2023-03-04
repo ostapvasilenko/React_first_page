@@ -1,21 +1,29 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import PostCard from '../components/UI/PostCards';
-// eslint-disable-next-line 
-import styles from '../styles/My_first_page.module.css';
+import React, { useEffect } from "react";
+import { useState } from "react";
+import PostCard from "../components/UI/PostCards";
+// eslint-disable-next-line
+import styles from "../styles/My_first_page.module.css";
 
 const My_first_page = () => {
-  let [counter, setCounter] = React.useState(0);
-  let [surname, setSurname] = React.useState('');
-  let [name, setName] = React.useState('');
-  let [fatherName, setFatherName] = React.useState('');
-  let [email, setEmail] = React.useState('');
-  let [title, setTitle] = React.useState('');
-  let [text, setText] = React.useState('');
-  let [formErrors, setFormErrors] = React.useState({});
+  const [counter, setCounter] = useState(0);
+
+  const [data, setData] = useState({
+    surname: "",
+    name: "",
+    fatherName: "",
+    email: "",
+  });
+
+  const [surname, setSurname] = useState("");
+  const [name, setName] = useState("");
+  const [fatherName, setFatherName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+  const [formErrors, setFormErrors] = useState({});
   //  Create a state variable to store the posts
-  let [posts, setPosts] = useState([]);
-  let [loading, setLoading] = useState(false);
+  const [posts, setPosts] = useState([]);
 
   //  Create a function to fetch the posts from the API
   async function getPosts() {
@@ -33,24 +41,22 @@ const My_first_page = () => {
     clearForm();
   }, []);
 
-
-
   // Form validation
   const validateForm = () => {
     const errors = {};
     if (!surname.trim()) {
-      errors.surname = 'Surname is required';
+      errors.surname = "Surname is required";
     }
     if (!name.trim()) {
-      errors.name = 'Name is required';
+      errors.name = "Name is required";
     }
     if (!fatherName.trim()) {
-      errors.fatherName = 'Father`s name is required';
+      errors.fatherName = "Father`s name is required";
     }
     if (!email.trim()) {
-      errors.email = 'Email is required';
+      errors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      errors.email = 'Email is invalid';
+      errors.email = "Email is invalid";
     }
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
@@ -70,72 +76,126 @@ const My_first_page = () => {
 
   // Clear form
   function clearForm() {
-    setTitle('');
-    setText('');
+    setTitle("");
+    setText("");
   }
 
-      // Delete post
- function deletePost(post) {
-  const newPosts = posts.filter((p) => p.id !== post.id);
-  setPosts(newPosts);
-}
-  
-  
+  // Delete post
+  function deletePost(post) {
+    const newPosts = posts.filter((p) => p.id !== post.id);
+    setPosts(newPosts);
+  }
+
   return (
     <div className={styles.body}>
       <h1 className={styles.title}>My first React page</h1>
-      <p className={styles.text}>
-        I tried to do the project well
-      </p>
-      <button className={styles.button} onClick={() => {
-        setCounter(counter + 1)
-      }}>Increment (+1)</button>
-      <button className={styles.button} onClick={() => {
-        setCounter(counter - 1)
-      }}>Decrement (-1)</button>
-      <h2 className={styles.result}  >
-        Result: {counter}
-      </h2>
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        e.clearForm();
-       
-        if (validateForm()) {
-          console.log('Form is valid');
-        }
-      }}>
+      <p className={styles.text}>I tried to do the project well</p>
+      <button
+        className={styles.button}
+        onClick={() => {
+          setCounter(counter + 1);
+        }}
+      >
+        Increment (+1)
+      </button>
+      <button
+        className={styles.button}
+        onClick={() => {
+          setCounter(counter - 1);
+        }}
+      >
+        Decrement (-1)
+      </button>
+      <h2 className={styles.result}>Result: {counter}</h2>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          e.clearForm();
+
+          if (validateForm()) {
+            console.log("Form is valid");
+          }
+        }}
+      >
         <div className={styles.posts_form}>
-          <input onChange={(e) => { setTitle(e.target.value) }} type="text" placeholder='Title' />
-          <textarea onChange={(e) => { setText(e.target.value) }} type="text" placeholder='Text' />
-          <button  onClick={addPost} className={styles.button}>Add Post</button></div>
+          <input
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            type="text"
+            placeholder="Title"
+          />
+          <textarea
+            onChange={(e) => {
+              setText(e.target.value);
+            }}
+            type="text"
+            placeholder="Text"
+          />
+          <button onClick={addPost} className={styles.button}>
+            Add Post
+          </button>
+        </div>
       </form>
-
-
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        e.clearForm();
-        if (validateForm()) {
-          console.log('Form is valid');
-
-        }
-      }}>
-        <div className={styles.posts_form_data}><input onChange={(e) => { setSurname(e.target.value.toUpperCase()) }} type="text" placeholder='Surname' />
-          <input onChange={(e) => { setName(e.target.value.toUpperCase()) }} type="text" placeholder='Name' />
-          <input onChange={(e) => { setFatherName(e.target.value.toUpperCase()) }} type="text" placeholder='Father`s name' />
-        <input onChange={(e) => { setEmail(e.target.value.toLowerCase()) }} type="mail" placeholder='Email' /></div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          e.clearForm();
+          if (validateForm()) {
+            console.log("Form is valid");
+          }
+        }}
+      >
+        <div className={styles.posts_form_data}>
+          <div>{data.surname}</div>
+          <input
+            onChange={(e) => {
+              const tepmlatePosts = { ...data };
+              tepmlatePosts.surname = e.target.value;
+              setData(tepmlatePosts);
+            }}
+            type="text"
+            placeholder="Surname"
+          />
+          <input
+            onChange={(e) => {
+              const tepmlatePosts = { ...data };
+              tepmlatePosts.name = e.target.value.toUpperCase();
+              setData(tepmlatePosts);
+            }}
+            type="text"
+            placeholder="Name"
+          />
+          <input
+            onChange={(e) => {
+              const tepmlatePosts = { ...data };
+              tepmlatePosts.fatherName = e.target.value.toUpperCase();
+              setData(tepmlatePosts);
+            }}
+            type="text"
+            placeholder="Father`s name"
+          />
+          <input
+            onChange={(e) => {
+              const tepmlatePosts = { ...data };
+              tepmlatePosts.email = e.target.value.toUpperCase();
+              setData(tepmlatePosts);
+            }}
+            type="mail"
+            placeholder="Email"
+          />
+        </div>
       </form>
       <h2>
-
-        {surname}  {name.length ? name[0] + "." : ""} {fatherName.length ? fatherName[0] + "." : ""}
+        {surname} {name.length ? name[0] + "." : ""}{" "}
+        {fatherName.length ? fatherName[0] + "." : ""}
       </h2>
-      <h2>
-        {email}
-      </h2>
+      <h2>{email}</h2>
       <section>
         <div className="container">
           <div className="row">
             <div className="col-12">
-              <div onClick={getPosts}  className={styles.button}>
+              <div onClick={getPosts} className={styles.button}>
                 Show Posts
               </div>
             </div>
@@ -145,7 +205,11 @@ const My_first_page = () => {
 
                 {posts.map((post) => {
                   return (
-                    <PostCard deletePost={deletePost} post={post} key={post.id} />
+                    <PostCard
+                      deletePost={deletePost}
+                      post={post}
+                      key={post.id}
+                    />
                   );
                 })}
               </div>
@@ -154,7 +218,6 @@ const My_first_page = () => {
         </div>
       </section>
     </div>
-  )
-}
-
-export default My_first_page
+  );
+};
+export default My_first_page;
